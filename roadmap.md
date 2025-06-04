@@ -28,32 +28,38 @@ An intelligent, Gemini-powered academic assistant where students upload PYQs (Pr
 ## ✅ PHASE 2: BACKEND FOUNDATION (FastAPI)
 
 ### 📌 Checklist
-- [ ] Create `main.py` with FastAPI app
-- [ ] Implement file upload endpoint
-- [ ] Structure project with `utils/` folder
-- [ ] Auto-generate Swagger UI at `/docs`
+- [✅] Create `main.py` with FastAPI app
+- [✅] Implement file upload endpoint
+- [✅] Structure project with `utils/` folder
+- [✅] Auto-generate Swagger UI at `/docs`
 
 ---
 
-## ✅ PHASE 3: FILE PARSING & TEXT EXTRACTION
+## ✅ PHASE 3: GEMINI INTEGRATION (WITH PROMPT AGENT)
 
-### 📌 Checklist
-- [ ] Use PyMuPDF to extract text from PDFs
-- [ ] Use pytesseract for image OCR
-- [ ] Support `.pdf`, `.png`, `.jpg`, `.jpeg`
-- [ ] Return cleaned list of questions
+### 🧠 Intelligent Agent (Auto Classifier)
+- [ ] Create `classify_question(question: str) -> str` function
+  - Categories: `numerical`, `theory`, `diagram`, `definition`, `conceptual`
 
----
-
-## ✅ PHASE 4: GEMINI INTEGRATION
+### 🔮 Prompt Templates (Few-Shot Enabled)
+- [ ] Create prompt bank using few-shot format
+- [ ] Store in JSON/YAML format or hardcoded dictionary
 
 ### 📌 Checklist
 - [ ] Get API key from Google AI Studio
 - [ ] Use Gemini Pro for:
-  - [ ] Step-by-step question solving
-  - [ ] Flashcard generation
-  - [ ] Mind map structure (JSON)
-  - [ ] MCQ generation
+- [ ] Step-by-step question solving
+- [ ] Flashcard generation
+- [ ] Mind map structure (JSON)
+- [ ] MCQ generation
+
+---
+
+## ✅ PHASE 4: FILE PARSING & TEXT EXTRACTION
+📌 Checklist
+- [ ] Extract text from PDFs using PyMuPDF
+- [ ]Extract text from images using Tesseract
+- [ ]Return structured question list
 
 ---
 
@@ -104,7 +110,8 @@ ai-edtech-platform/
 ├── utils/
 │ ├── gemini_api.py
 │ ├── extract_text.py
-│ └── generate_pdf.py
+│ └── prompt_agent.py
+│ └── prompt_agent.py
 ├── uploads/
 ├── outputs/
 └── roadmap.md
