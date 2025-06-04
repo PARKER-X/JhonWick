@@ -224,14 +224,7 @@ flowchart TD
 
 ---
 
-## ✅ 2. **Proof by Induction**
-
-### 📈 Theorem  
-Prove that the sum of the first n natural numbers is:  
-  **1 + 2 + ... + n = n(n + 1)/2**
-
-```text
-Q: Prove by induction: ∑ₖ₌₁ⁿ k = n(n+1)/2
+Q: Prove that the sum of the first n natural numbers Prove by induction: ∑ₖ₌₁ⁿ k = n(n+1)/2
 
 A: Proof (By Induction):
 
@@ -285,12 +278,6 @@ flowchart TD
 
 ---
 
-## ✅ 3. **Set-Based Proof (Subset)**
-
-### 🔍 Theorem  
-Prove that if A ⊆ B and B ⊆ C, then A ⊆ C.
-
-```text
 Q: Prove that if A ⊆ B and B ⊆ C, then A ⊆ C.
 
 A: Proof:
@@ -324,7 +311,7 @@ flowchart TD
     C --> D[Thus x ∈ C ⇒ A ⊆ C]
 
     
-    Q: Let f: S ⊆ ℝⁿ → ℝ be differentiable on an open convex set S. Prove that f is convex on S if and only if:
+Q: Let f: S ⊆ ℝⁿ → ℝ be differentiable on an open convex set S. Prove that f is convex on S if and only if:
   f(x) − f(u) ≥ (x − u)ᵀ∇f(u), ∀ x, u ∈ S.
 
 A: Proof:
@@ -418,13 +405,13 @@ flowchart TD
     I --> J[f is convex on S]
 
 
-Example 1:
 
-Theorem: The feasible region defined by a system of linear inequalities is a convex set.
+
+Q: Theorem: The feasible region defined by a system of linear inequalities is a convex set.
 
 Statement: Let S = { x ∈ ℝⁿ | Ax ≤ b } be the feasible region defined by matrix A ∈ ℝ^(m×n) and vector b ∈ ℝ^m. Then S is convex.
 
-Proof:
+A: Proof:
 
 Step 1: Define two arbitrary points in the feasible region.
 
@@ -461,6 +448,10 @@ x ●-------------● y
           z  
 
 ---
+
+Q: Topic: {question}
+A:
+
 
 
 """
