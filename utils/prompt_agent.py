@@ -1,15 +1,10 @@
 from utils.gemini import get_gemini_answer
-
-# Few-shot examples (for numerical questions)
-FEW_SHOT_NUMERICAL = """ """
-
-
-FEW_SHOT_MCQ_PROMPT = """ """
-
-FEW_SHOT_NUMERICAL_PROMPT ="""" """
+from fewshotnumerical import FEW_SHOT_NUMERICAL_PROMPT
+from fewshotmcq import FEW_SHOT_MCQ_PROMPT
+from fewshotproof import FEW_SHOT_PROOF_PROMPT
 
 
-FEW_SHOT_PROOF_PROMPT = """ """
+
 # Prompt templates
 PROMPT_TEMPLATES = {
     "proof": {
