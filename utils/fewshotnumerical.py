@@ -222,6 +222,10 @@ Maximum Z = 18.68
 
 
 
+Q:  {question}
+A:
+
+
 
 
 """

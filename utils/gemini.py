@@ -1,22 +1,14 @@
-import os
-from dotenv import load_dotenv
-import google.generativeai as genai
 
-load_dotenv()  # Load from .env file
+from prompt_agent import solve_question_with_agent
 
-api_key = os.getenv("GEMINI_API_KEY")
 
-if not api_key:
-    raise ValueError("GEMINI_API_KEY is missing. Please check your .env file.")
 
-genai.configure(api_key=api_key)
+# question = "What is organic chemistry?"
+question = "Find solution using Simplex(BigM) method MIN Z = x1 + x2 subject to 2x1 + 4x2 >= 4 x1 + 7x2 >= 7 and x1,x2 >= 0"
 
-model = genai.GenerativeModel("gemini-2.0-flash")
+result = solve_question_with_agent(question)
 
-def solve_question(question: str):
-    prompt = f"Solve the following exam question step-by-step:\n{question}"
-    response = model.generate_content(prompt)
-    return response.text
-    
-
-print(solve_question("what is organic chemistry"))
+print("\n=== Gemini Q&A Result ===")
+print(f"Prompt Type: {result['type']}")
+print(f"\nPrompt Used:\n{result['prompt_used']}\n")
+print(f"Answer:\n{result['answer']}")

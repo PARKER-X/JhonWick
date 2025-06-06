@@ -47,7 +47,7 @@ An intelligent, Gemini-powered academic assistant where students upload PYQs (Pr
 
 ### 📌 Checklist
 - [ ] Get API key from Google AI Studio
-- [ ] Use Gemini Pro for:
+- [ ] Use Gemini for:
 - [ ] Step-by-step question solving
 - [ ] Flashcard generation
 - [ ] Mind map structure (JSON)
