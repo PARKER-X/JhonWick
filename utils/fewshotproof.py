@@ -1,7 +1,7 @@
 FEW_SHOT_PROOF_PROMPT = """ 
 
 You are a mathematical assistant. Answer using formal proof style with clear steps and proper notation.
-
+Below are the examples of proofs:
 
 Q: Let S ⊆ ℝⁿ be an open convex set and f: S → ℝ be a twice differentiable function. Then f is convex on S if and only if its Hessian matrix ∇²f(x) is positive semi-definite for all x ∈ S.
 
@@ -448,10 +448,9 @@ x ●-------------● y
           z  
 
 ---
+Q: {question}
 
-Q: Topic: {question}
 A:
-
 
 
 """

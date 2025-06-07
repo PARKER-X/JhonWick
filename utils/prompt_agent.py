@@ -19,26 +19,45 @@ PROMPT_TEMPLATES = {
         "style": "few-shot",
         "template": FEW_SHOT_MCQ_PROMPT
     },
-    "theory": {
+     "theory": {
         "style": "zero-shot",
-        "template": "Write a detailed theoretical explanation for:\n{question}"
+        "template": (
+            "Define and explain the following concept in a clear and structured way:\n"
+            "{question}\n\n"
+            "Include:\n"
+            "1. 🔍 Definition\n"
+            "2. 📌 Practical Usage or Application\n"
+            "3. ✏️ If applicable, give a brief example"
+        )
     },
     "default": {
         "style": "zero-shot",
-        "template": "Answer the following question clearly:\n{question}"
+        "template": (
+            "Solve the following question step by step:\n"
+            "{question}\n\n"
+            "At the end, provide:\n"
+            "1. ✅ Final Answer\n"
+            "2. 🔎 Summary of the solution\n"
+            "3. 📘 List of formulas or concepts used"
+        )
     }
 }
 
 def classify_question(question: str) -> str:
     q_lower = question.lower()
     if any(kw in q_lower for kw in [
-        "calculate", "solve", "value", "equation", "integrate", "differentiate", "integration", "differentiation", "integral",
-        "find solution", "minimize", "maximize", "linear programming", "simplex", "bigm"
+        "calculate", "solve", "value", "equation", "integrate", "differentiate", "integration",  "integral",
+        "find solution", "minimize", "maximize", "linear programming", "simplex", "bigm","dy/dx","calculate", "solve", "value", "evaluate", "find", "simplify", "determine", "compute",
+        "integrate", "integration", "integral", "differentiate", "derivative", "differentiation",
+        "equation", "expression", "minimize", "maximize", "optimization", "gradient", "cost function",
+        "prediction", "regression", "mean", "standard deviation", "accuracy", "precision", "recall",
+        "height", "angle", "distance", "trigonometry", "tan", "sin", "cos", "transportation problem","probability",
+        "simplex", "bigm", "dual", "assignment problem", "knapsack", "graph", "shortest path", "kruskal"
     ]):
         return "numerical"
-    elif any(kw in q_lower for kw in ["prove", "show that", "derive"]):
+    elif any(kw in q_lower for kw in ["prove", "show that", "derive","demonstrate","establish"]):
         return "proof"
-    elif any(kw in q_lower for kw in ["mcq", "choose", "option", "multiple choice"]):
+    elif any(kw in q_lower for kw in ["mcq", "choose", "option", "select", "multiple choice", "correct answer", "which of the following"]):
         return "mcq"
     elif any(kw in q_lower for kw in ["define", "what is", "explain the meaning of"]):
         return "theory"
