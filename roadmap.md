@@ -38,11 +38,14 @@ An intelligent, Gemini-powered academic assistant where students upload PYQs (Pr
 ## ✅ PHASE 3: GEMINI INTEGRATION (WITH PROMPT AGENT)
 
 ### 🧠 Intelligent Agent (Auto Classifier)
-- [ ] Create `classify_question(question: str) -> str` function
+- [✅] Create `classify_question(question: str) -> str` function
   - Categories: `numerical`, `theory`, `diagram`, `definition`, `conceptual`
+  [✅] fewshotmcq.py
+  [✅] fewshotproof.py
+│ [✅] fewshotnumerical.py
 
 ### 🔮 Prompt Templates (Few-Shot Enabled)
-- [ ] Create prompt bank using few-shot format
+- [✅] Create prompt bank using few-shot format
 - [ ] Store in JSON/YAML format or hardcoded dictionary
 
 ### 📌 Checklist
@@ -108,10 +111,14 @@ ai-edtech-platform/
 ├── main.py
 ├── requirements.txt
 ├── utils/
-│ ├── gemini_api.py
+│ ├── gemini.py
+│ ├── gemini_core.py
+│ ├── demo.py
 │ ├── extract_text.py
 │ └── prompt_agent.py
-│ └── prompt_agent.py
+│ └── fewshotmcq.py
+│ └── fewshotproof.py
+│ └── fewshotnumerical.py
 ├── uploads/
 ├── outputs/
 └── roadmap.md

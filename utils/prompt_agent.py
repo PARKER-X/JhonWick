@@ -45,8 +45,15 @@ PROMPT_TEMPLATES = {
 
 def classify_question(question: str) -> str:
     q_lower = question.lower()
-    if any(kw in q_lower for kw in [
-        "calculate", "solve", "value", "equation", "integrate", "differentiate", "integration",  "integral",
+    
+    if any(kw in q_lower for kw in ["prove", "show that", "derive","demonstrate","establish"]):
+        return "proof"
+    elif any(kw in q_lower for kw in ["mcq", "choose", "option", "select", "multiple choice", "correct answer", "which of the following"]):
+        return "mcq"
+    elif any(kw in q_lower for kw in ["define", "what is", "explain the meaning of"]):
+        return "theory"
+    elif any(kw in q_lower for kw in [
+        "calculate", "equation", "integrate", "differentiate", "integration",  "integral",
         "find solution", "minimize", "maximize", "linear programming", "simplex", "bigm","dy/dx","calculate", "solve", "value", "evaluate", "find", "simplify", "determine", "compute",
         "integrate", "integration", "integral", "differentiate", "derivative", "differentiation",
         "equation", "expression", "minimize", "maximize", "optimization", "gradient", "cost function",
@@ -55,12 +62,6 @@ def classify_question(question: str) -> str:
         "simplex", "bigm", "dual", "assignment problem", "knapsack", "graph", "shortest path", "kruskal"
     ]):
         return "numerical"
-    elif any(kw in q_lower for kw in ["prove", "show that", "derive","demonstrate","establish"]):
-        return "proof"
-    elif any(kw in q_lower for kw in ["mcq", "choose", "option", "select", "multiple choice", "correct answer", "which of the following"]):
-        return "mcq"
-    elif any(kw in q_lower for kw in ["define", "what is", "explain the meaning of"]):
-        return "theory"
     else:
         return "default"
 
