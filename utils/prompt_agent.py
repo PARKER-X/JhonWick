@@ -67,7 +67,8 @@ def classify_question(question: str) -> str:
 
 def build_prompt(question: str, q_type: str) -> str:
     template_data = PROMPT_TEMPLATES.get(q_type, PROMPT_TEMPLATES["default"])
-    return template_data["template"].format(question=question)
+    return f"{template_data['template']}\n\nQ: {question}\nA:"
+
 
 def solve_question_with_agent(question: str) -> dict:
     q_type = classify_question(question)
