@@ -106,7 +106,7 @@ An intelligent, Gemini-powered academic assistant where students upload PYQs (Pr
 
 ## 🧩 Project Structure
 
-ai-edtech-platform/
+``` ai-edtech-platform/
 ├── .venv/
 ├── main.py
 ├── requirements.txt
@@ -121,4 +121,4 @@ ai-edtech-platform/
 │ └── fewshotnumerical.py
 ├── uploads/
 ├── outputs/
-└── roadmap.md
+└── roadmap.md ```
