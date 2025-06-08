@@ -1,6 +1,6 @@
 # utils/flashcard.py
 
-from gemini_core import get_gemini_answer  
+from utils.gemini_core import get_gemini_answer  
 
 FLASHCARD_PROMPT = """
 You are a flashcard generator. From the text below, extract key facts and concepts, and generate flashcards in the following format:
@@ -28,4 +28,4 @@ The water cycle describes how water evaporates from the surface of the earth, ri
 """
 
 flashcards = generate_flashcards_from_text(sample_text)
-print(flashcards)
+# print(flashcards)

@@ -52,9 +52,9 @@ An intelligent, Gemini-powered academic assistant where students upload PYQs (Pr
 - [✅] Get API key from Google AI Studio
 - [✅] Use Gemini for:
 - [✅] Step-by-step question solving
-- [ ] Flashcard generation
-- [ ] Mind map structure (JSON)
-- [ ] MCQ generation
+- [✅] Flashcard generation
+- [✅] Mind map structure (JSON)
+- [✅] MCQ generation
 
 ---
 
@@ -73,6 +73,7 @@ An intelligent, Gemini-powered academic assistant where students upload PYQs (Pr
 - [ ] Create HTML/CSS flashcards
 - [ ] Render mind map via Mermaid.js
 - [ ] Bundle all content for user to download
+- [ ] Demo folder for streamlit
 
 ---
 
@@ -120,6 +121,9 @@ An intelligent, Gemini-powered academic assistant where students upload PYQs (Pr
 │ └── fewshotproof.py
 │ └── fewshotnumerical.py
 │ └── flashcard.py
+│ └── mindmap.py
+├── demo/
+│ ├── mind.py
 ├── uploads/
 ├── outputs/
 └── roadmap.md ```
