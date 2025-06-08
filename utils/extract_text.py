@@ -2,20 +2,11 @@ import fitz  # PyMuPDF
 from PIL import Image
 import pytesseract
 import io
+import fitz  # PyMuPDF
 
-
-def extract_text_from_file(content: bytes, filename: str):
-    if filename.endswith(".pdf"):
-        with open("temp.pdf", "wb") as f:
-            f.write(content)
-        text = ""
-        doc = fitz.open("temp.pdf")
+def extract_text_from_pdf(uploaded_file):
+    text = ""
+    with fitz.open(stream=uploaded_file.read(), filetype="pdf") as doc:
         for page in doc:
             text += page.get_text()
-        return [line.strip() for line in text.split("\n") if line.strip()]
-    elif filename.endswith((".png", ".jpg", ".jpeg")):
-        image = Image.open(io.BytesIO(content))
-        text = pytesseract.image_to_string(image)
-        return [line.strip() for line in text.split("\n") if line.strip()]
-    else:
-        return ["Unsupported file type."]
+    return text

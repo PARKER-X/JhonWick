@@ -17,6 +17,7 @@ def get_gemini_answer(prompt: str) -> str:
     return response.text
 
 
+
     
 
 # print(get_gemini_answer("what is organic chemistry"))

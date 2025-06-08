@@ -61,3 +61,17 @@ mermaid_code = outline_to_mermaid(outline)
 
 # print("🧠 Mermaid Mind Map Code:\n")
 # print(mermaid_code)
+
+
+# utils/mindmap.py
+
+
+def generate_mindmap_outline(text):
+    prompt = f"""Create a mind map outline in Mermaid format based on this text:
+    {text}
+
+    Use Mermaid syntax like:
+    graph TD
+    A[Main Topic] --> B[Subtopic]
+    """
+    return get_gemini_answer(prompt)

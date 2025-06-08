@@ -29,3 +29,20 @@ The water cycle describes how water evaporates from the surface of the earth, ri
 
 flashcards = generate_flashcards_from_text(sample_text)
 # print(flashcards)
+
+
+def generate_flashcards_from_text(text):
+    prompt = f"""Create 5 flashcards from the following text. Format each as:
+    Q: [Question]
+    A: [Answer]
+
+    TEXT:
+    {text}"""
+    response = get_gemini_answer(prompt)
+    cards = []
+    for block in response.strip().split("\n\n"):
+        if "Q:" in block and "A:" in block:
+            q = block.split("Q:")[1].split("A:")[0].strip()
+            a = block.split("A:")[1].strip()
+            cards.append({"question": q, "answer": a})
+    return cards

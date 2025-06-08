@@ -122,8 +122,12 @@ An intelligent, Gemini-powered academic assistant where students upload PYQs (Pr
 │ └── fewshotnumerical.py
 │ └── flashcard.py
 │ └── mindmap.py
+│ └── mcq.py
+│ └── chatbot.py
+│ └── summary.py
 ├── demo/
 │ ├── mind.py
+│ ├── dashboard.py
 ├── uploads/
 ├── outputs/
 └── roadmap.md ```
