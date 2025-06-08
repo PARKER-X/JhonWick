@@ -49,9 +49,9 @@ An intelligent, Gemini-powered academic assistant where students upload PYQs (Pr
 - [ ] Store in JSON/YAML format or hardcoded dictionary
 
 ### 📌 Checklist
-- [ ] Get API key from Google AI Studio
-- [ ] Use Gemini for:
-- [ ] Step-by-step question solving
+- [✅] Get API key from Google AI Studio
+- [✅] Use Gemini for:
+- [✅] Step-by-step question solving
 - [ ] Flashcard generation
 - [ ] Mind map structure (JSON)
 - [ ] MCQ generation
@@ -119,6 +119,7 @@ An intelligent, Gemini-powered academic assistant where students upload PYQs (Pr
 │ └── fewshotmcq.py
 │ └── fewshotproof.py
 │ └── fewshotnumerical.py
+│ └── flashcard.py
 ├── uploads/
 ├── outputs/
 └── roadmap.md ```
