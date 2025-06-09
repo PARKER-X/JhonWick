@@ -129,6 +129,9 @@ An intelligent, Gemini-powered academic assistant where students upload PYQs (Pr
 │ ├── mind.py
 │ ├── dashboard.py
 ├── frontend/
+│ ├── index.html
+│ ├── style.css
+│ ├── script.js
 ├── uploads/
 ├── outputs/
 └── roadmap.md ```

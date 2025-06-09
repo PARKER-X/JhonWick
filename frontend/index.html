@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mega-Bot AI</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/static/style.css">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
@@ -13,36 +13,51 @@
         <h1 class="title">Hello, there</h1>
         <p class="subtitle">How can I help you today?</p>
         <ul class="suggestion-list">
-            <li class="suggestion">
-                <h4 class="text">Help me plan a game night with my 5 best friends for under $100.</h4>
-                <span class="icon material-symbols-rounded">draw</span>
-            </li>
-            <li class="suggestion">
-                <h4 class="text">What are the best tips to improve my public speaking skills?</h4>
-                <span class="icon material-symbols-rounded">lightbulb</span>
-            </li>
-            <li class="suggestion">
-                <h4 class="text">Can you help me find the latest news on web development?</h4>
-                <span class="icon material-symbols-rounded">explore</span>
-            </li>
-            <li class="suggestion">
-                <h4 class="text">Write JavaScript code to sum all elements in an array.</h4>
-                <span class="icon material-symbols-rounded">code</span>
-            </li>
-        </ul>
+    <li class="suggestion" data-query="Help me plan a game night with my 5 best friends for under $100.">
+        <h4 class="text">Help me plan a game night with my 5 best friends for under $100.</h4>
+        <span class="icon material-symbols-rounded">draw</span>
+    </li>
+    <li class="suggestion" data-query="What are the best tips to improve my public speaking skills?">
+        <h4 class="text">What are the best tips to improve my public speaking skills?</h4>
+        <span class="icon material-symbols-rounded">lightbulb</span>
+    </li>
+    <li class="suggestion" data-query="Can you help me find the latest news on web development?">
+        <h4 class="text">Can you help me find the latest news on web development?</h4>
+        <span class="icon material-symbols-rounded">explore</span>
+    </li>
+    <li class="suggestion" data-query="Write JavaScript code to sum all elements in an array.">
+        <h4 class="text">Write JavaScript code to sum all elements in an array.</h4>
+        <span class="icon material-symbols-rounded">code</span>
+    </li>
+</ul>
+
     </header>
     <div class="chat-list"></div>
     <div class="typing-area">
         <form class="typing-form">
-            <div class="input-wrapper">
-                <input type="text" placeholder="Enter a prompt here" class="typing-input" required />
-                <button id="send-message-button" class="icon material-symbols-rounded">send</button>
-            </div>
-            <div class="action-buttons">
-                <span id="theme-toggle-button" class="icon material-symbols-rounded">light_mode</span>
-                <span id="delete-chat-button" class="icon material-symbols-rounded">delete</span>
-            </div>
-        </form>
+    <div class="input-wrapper">
+        <!-- Hidden file input -->
+        <input type="file" id="file-upload" class="file-input" accept=".pdf,image/*" style="display: none;" />
+
+        <!-- Styled attach button -->
+        <label for="file-upload" class="icon material-symbols-rounded attach-button" title="Attach a file">
+            attach_file
+        </label>
+
+        <!-- Text prompt input -->
+        <input type="text" placeholder="Enter a prompt here" class="typing-input" required />
+
+        <!-- Send button -->
+        <button id="send-message-button" class="icon material-symbols-rounded">send</button>
+    </div>
+
+    <div class="action-buttons">
+        <span id="theme-toggle-button" class="icon material-symbols-rounded">light_mode</span>
+        <span id="delete-chat-button" class="icon material-symbols-rounded">delete</span>
+    </div>
+</form>
+
+
         <p class="disclaimer-text">
             Mega-Bot may display inaccurate info, including about people, so double-check its responses.
         </p>
@@ -51,7 +66,7 @@
     <img src="images/user.jpg" style="display:none;" alt="User avatar">
     <img src="images/gemini.svg" style="display:none;" alt="Gemini avatar">
 
-    <script src="script.js"></script>
-    
+   <script src="/static/script.js"></script>
+
 </body>
 </html>

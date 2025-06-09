@@ -1,33 +1,49 @@
 from fastapi import FastAPI, UploadFile, File
-from utils.gemini import solve_question
-from utils.extract_text import extract_text_from_file
 from dotenv import load_dotenv
 import os
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from utils.gemini import solve_question_with_agent
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 # Load environment variables from .env
 load_dotenv()
 
 app = FastAPI()
 
+# Serve static files like JS and CSS
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
+
+
+
+# Allow your frontend to call this backend (adjust origins accordingly)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Use your frontend URL(s) in production!
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class PromptRequest(BaseModel):
+    prompt: str
+# Serve index.html at root "/"
 
 @app.get("/")
-def root():
-    return {"status": "API is running!"}
+async def read_index():
+    return FileResponse("frontend/index.html")
 
+@app.post("/")
+async def generate_response(req: PromptRequest):
+    try:
+        result =  solve_question_with_agent(req.prompt)  # Already returns string
+        return {"result": result["answer"]}
+    except Exception as e:
+        return {"result": f"Error generating response: {str(e)}"}
 
-@app.post("/upload/")
-async def upload_pyq(file: UploadFile = File(...)):
-    contents = await file.read()
-    text_questions = extract_text_from_file(contents, file.filename)
-    results = []
-
-    for q in text_questions:
-        answer = solve_question(q)
-        results.append({"question": q, "answer": answer})
-
-    return {"results": results}
-
-
+    
 # This block makes it runnable via `python main.py`
 if __name__ == "__main__":
     import uvicorn

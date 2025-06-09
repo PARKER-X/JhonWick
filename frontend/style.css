@@ -292,3 +292,49 @@
             }
         }
     
+        .upload-wrapper {
+    margin-bottom: 10px;
+}
+
+/* Optional: styling the attach icon */
+.attach-button {
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 24px;
+    vertical-align: middle;
+    color: #666;
+}
+
+.attach-button:hover {
+    color: #000;
+}
+
+.chat-list {
+  max-height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.chat-bubble {
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 15px;
+  font-size: 1rem;
+  word-wrap: break-word;
+}
+
+.chat-bubble.user {
+  background-color: #d0f0c0;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.chat-bubble.bot {
+  background-color: #f1d0d0;
+  align-self: flex-start;
+  text-align: left;
+}
+

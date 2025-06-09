@@ -153,3 +153,84 @@
         // Load saved theme
         loadThemeFromLocalstorage();
     
+   document.getElementById("file-upload").addEventListener("change", function () {
+    const file = this.files[0];
+    if (file) {
+        // Just to show feedback (or you can attach it to the message payload)
+        alert(`File attached: ${file.name}`);
+
+        // TODO: Send this file along with the prompt to your backend
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const promptInput = document.querySelector(".typing-input");
+    const form = document.querySelector(".typing-form");
+
+    document.querySelectorAll(".suggestion").forEach((item) => {
+        item.addEventListener("click", () => {
+            const prompt = item.getAttribute("data-query");
+
+            // Fill the input with the selected prompt
+            promptInput.value = prompt;
+
+            // Optional: focus the input (for editing)
+            promptInput.focus();
+
+            // Automatically submit the form
+            form.dispatchEvent(new Event("submit", { cancelable: true }));
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const chatList = document.querySelector(".chat-list");
+  const promptInput = document.querySelector(".typing-input");
+  const form = document.querySelector(".typing-form");
+
+  function addChatBubble(text, sender = "user") {
+    const bubble = document.createElement("div");
+    bubble.className = `chat-bubble ${sender}`;
+    bubble.innerText = text;
+    chatList.appendChild(bubble);
+    chatList.scrollTop = chatList.scrollHeight;
+  }
+
+  async function sendToGemini(prompt) {
+    addChatBubble(prompt, "user");
+
+    const botBubble = document.createElement("div");
+    botBubble.className = "chat-bubble bot";
+    botBubble.innerText = "Thinking...";
+    chatList.appendChild(botBubble);
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt }),
+      });
+      const data = await response.json();
+      botBubble.innerText = data.result || "No response.";
+    } catch (err) {
+      botBubble.innerText = "Error contacting Gemini.";
+    }
+  }
+
+  document.querySelectorAll(".suggestion").forEach(item => {
+    item.addEventListener("click", () => {
+      const prompt = item.getAttribute("data-query");
+      chatList.innerHTML = ""; // Clear previous chat
+      promptInput.value = "";  // Clear input field
+      sendToGemini(prompt);    // Send new chat
+    });
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const prompt = promptInput.value.trim();
+    if (!prompt) return;
+    promptInput.value = "";
+    sendToGemini(prompt);
+  });
+});

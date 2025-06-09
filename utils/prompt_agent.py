@@ -1,9 +1,9 @@
 # prompt_agent.py
 
-from gemini_core import get_gemini_answer  # Adjust path if needed
-from fewshotnumerical import FEW_SHOT_NUMERICAL_PROMPT
-from fewshotmcq import FEW_SHOT_MCQ_PROMPT
-from fewshotproof import FEW_SHOT_PROOF_PROMPT
+from utils.gemini_core import get_gemini_answer  # Adjust path if needed
+from utils.fewshotnumerical import FEW_SHOT_NUMERICAL_PROMPT
+from utils.fewshotmcq import FEW_SHOT_MCQ_PROMPT
+from utils.fewshotproof import FEW_SHOT_PROOF_PROMPT
 
 # Prompt templates for different question types
 PROMPT_TEMPLATES = {
