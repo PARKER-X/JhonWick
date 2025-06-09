@@ -60,9 +60,9 @@ An intelligent, Gemini-powered academic assistant where students upload PYQs (Pr
 
 ## ✅ PHASE 4: FILE PARSING & TEXT EXTRACTION
 📌 Checklist
-- [ ] Extract text from PDFs using PyMuPDF
-- [ ]Extract text from images using Tesseract
-- [ ]Return structured question list
+- [✅] Extract text from PDFs using PyMuPDF
+- [✅]Extract text from images using Tesseract
+- [✅]Return structured question list
 
 ---
 

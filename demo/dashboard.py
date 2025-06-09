@@ -13,15 +13,25 @@ from utils.mindmap import generate_mindmap_outline
 from utils.mcq import generate_mcqs_from_text
 from utils.chatbot import chat_with_content
 from utils.summary import generate_summary
+from utils.extract_image import extract_text_from_image
 
 st.title("AI EdTech Assistant")
 
-uploaded_file = st.file_uploader("Upload your study material (PDF)", type="pdf")
+uploaded_file = uploaded_file = st.file_uploader(
+    "Upload your study material (PDF or Image)", 
+    type=["pdf", "png", "jpg", "jpeg"]
+)
 
 if uploaded_file:
-    text = extract_text_from_pdf(uploaded_file)
+    file_type = uploaded_file.type
 
-    st.success("PDF Uploaded & Text Extracted ✅")
+    if file_type == "application/pdf":
+        text = extract_text_from_pdf(uploaded_file)
+        st.success("✅ PDF uploaded and text extracted!")
+
+    elif file_type.startswith("image/"):
+        text = extract_text_from_image(uploaded_file)
+        st.success("✅ Image uploaded and text extracted!")
     
     task = st.radio("Choose what you want to generate:", ["Summary", "Flashcards", "Mind Map", "MCQs", "Chat with Content"])
 
