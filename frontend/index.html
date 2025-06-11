@@ -1,72 +1,529 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mega-Bot AI</title>
-    <link rel="stylesheet" href="/static/style.css">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroPulse AI Chat</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+  
 </head>
-<body>
-    <header class="header">
-        <h1 class="title">Hello, there</h1>
-        <p class="subtitle">How can I help you today?</p>
-        <ul class="suggestion-list">
-    <li class="suggestion" data-query="Help me plan a game night with my 5 best friends for under $100.">
-        <h4 class="text">Help me plan a game night with my 5 best friends for under $100.</h4>
-        <span class="icon material-symbols-rounded">draw</span>
-    </li>
-    <li class="suggestion" data-query="What are the best tips to improve my public speaking skills?">
-        <h4 class="text">What are the best tips to improve my public speaking skills?</h4>
-        <span class="icon material-symbols-rounded">lightbulb</span>
-    </li>
-    <li class="suggestion" data-query="Can you help me find the latest news on web development?">
-        <h4 class="text">Can you help me find the latest news on web development?</h4>
-        <span class="icon material-symbols-rounded">explore</span>
-    </li>
-    <li class="suggestion" data-query="Write JavaScript code to sum all elements in an array.">
-        <h4 class="text">Write JavaScript code to sum all elements in an array.</h4>
-        <span class="icon material-symbols-rounded">code</span>
-    </li>
-</ul>
+<body class="theme-pulse" data-perspective="on">
+  <!-- 3D Background Elements -->
+  <div class="bg-elements">
+    <div class="floating-cube"></div>
+    <div class="floating-sphere"></div>
+    <div class="floating-pyramid"></div>
+    <div class="grid-floor"></div>
+    <div class="ambient-particles"></div>
+  </div>
 
-    </header>
-    <div class="chat-list"></div>
-    <div class="typing-area">
-        <form class="typing-form">
-    <div class="input-wrapper">
-        <!-- Hidden file input -->
-        <input type="file" id="file-upload" class="file-input" accept=".pdf,image/*" style="display: none;" />
+  <!-- Custom Cursor -->
+  <div class="neo-cursor">
+    <div class="cursor-ring"></div>
+    <div class="cursor-dot"></div>
+  </div>
 
-        <!-- Styled attach button -->
-        <label for="file-upload" class="icon material-symbols-rounded attach-button" title="Attach a file">
-            attach_file
-        </label>
-
-        <!-- Text prompt input -->
-        <input type="text" placeholder="Enter a prompt here" class="typing-input" required />
-
-        <!-- Send button -->
-        <button id="send-message-button" class="icon material-symbols-rounded">send</button>
-    </div>
-
-    <div class="action-buttons">
-        <span id="theme-toggle-button" class="icon material-symbols-rounded">light_mode</span>
-        <span id="delete-chat-button" class="icon material-symbols-rounded">delete</span>
-    </div>
-</form>
-
-
-        <p class="disclaimer-text">
-            Mega-Bot may display inaccurate info, including about people, so double-check its responses.
-        </p>
+  <!-- Header with Logo and Controls -->
+  <header class="app-header">
+    <div class="logo-container">
+      <div class="logo-icon">
+        <div class="neural-icon">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <h1 class="logo-text">NeuroPulse<span>AI</span></h1>
     </div>
     
-    <img src="images/user.jpg" style="display:none;" alt="User avatar">
-    <img src="images/gemini.svg" style="display:none;" alt="Gemini avatar">
+    <div class="header-controls">
+      <button id="theme-toggle" class="neo-button icon-button" aria-label="Toggle theme">
+        <i class="fas fa-palette"></i>
+      </button>
+      <button id="settings-toggle" class="neo-button icon-button" aria-label="Settings">
+        <i class="fas fa-sliders"></i>
+      </button>
+      <div class="user-profile">
+        <div class="avatar" data-status="active">U</div>
+        <span class="token-display">
+          <i class="fas fa-bolt"></i>
+          <span id="token-count">87,420</span>
+        </span>
+      </div>
+    </div>
+  </header>
 
-   <script src="/static/script.js"></script>
+  <div class="app-container">
+    <!-- Main Sidebar -->
+    <aside class="sidebar">
+      <nav class="main-nav">
+        <ul>
+          <li class="active">
+            <a href="#chat" class="nav-item">
+              <i class="fas fa-comment-dots"></i>
+              <span>Chat</span>
+            </a>
+          </li>
+          <li>
+            <a href="#code" class="nav-item">
+              <i class="fas fa-code"></i>
+              <span>Code Assist</span>
+            </a>
+          </li>
+          <li>
+            <a href="#image" class="nav-item">
+              <i class="fas fa-image"></i>
+              <span>Image Gen</span>
+            </a>
+          </li>
+          <li>
+            <a href="#voice" class="nav-item">
+              <i class="fas fa-microphone-alt"></i>
+              <span>Voice Mode</span>
+            </a>
+          </li>
+          <li>
+            <a href="#files" class="nav-item">
+              <i class="fas fa-file-alt"></i>
+              <span>Files</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <button id="new-chat" class="neo-button primary-button">
+          <i class="fas fa-plus"></i> New Chat
+        </button>
+        <div class="model-selector-container">
+          <label for="model-selector">AI Model</label>
+          <div class="custom-select">
+            <select id="model-selector">
+              <option value="pulse-standard">Pulse Standard</option>
+              <option value="pulse-ultra">Pulse Ultra</option>
+              <option value="pulse-architect">Pulse Architect</option>
+              <option value="pulse-scholar">Pulse Scholar</option>
+              <option value="pulse-creative">Pulse Creative</option>
+            </select>
+            <div class="select-arrow"><i class="fas fa-chevron-down"></i></div>
+          </div>
+        </div>
+      </div>
+    </aside>
 
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Chat Interface View -->
+      <section id="chat-view" class="view active-view">
+        <!-- Chat Controls -->
+        <div class="chat-controls">
+          <div class="control-group">
+            <button id="extended-thinking-toggle" class="neo-switch" aria-pressed="false">
+              <span class="switch-indicator"></span>
+              <span class="switch-label">Extended Thinking</span>
+            </button>
+            <div class="tooltip">Deep reasoning for complex questions</div>
+          </div>
+          
+          <div class="control-group">
+            <button id="memory-toggle" class="neo-switch" aria-pressed="true">
+              <span class="switch-indicator"></span>
+              <span class="switch-label">Memory</span>
+            </button>
+            <div class="tooltip">Remember conversation context</div>
+          </div>
+          
+          <div class="control-group">
+            <button id="citations-toggle" class="neo-switch" aria-pressed="false">
+              <span class="switch-indicator"></span>
+              <span class="switch-label">Citations</span>
+            </button>
+            <div class="tooltip">Include sources in responses</div>
+          </div>
+        </div>
+        
+        <!-- Messages Container -->
+        <div class="messages-container glass-panel">
+          <div class="conversation-header">
+            <h2>Conversation</h2>
+            <div class="action-buttons">
+              <button class="icon-action" aria-label="Download chat">
+                <i class="fas fa-download"></i>
+              </button>
+              <button class="icon-action" aria-label="Share chat">
+                <i class="fas fa-share-alt"></i>
+              </button>
+              <button class="icon-action" aria-label="Clear chat">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div id="messages-list" class="messages-list">
+            <!-- Welcome message will be inserted here -->
+          </div>
+          
+          <div id="typing-indicator" class="typing-indicator">
+            <div class="thinking-animation">
+              <span></span><span></span><span></span>
+              <span></span><span></span><span></span>
+            </div>
+            <div class="thinking-label">Analyzing inputs and generating response...</div>
+          </div>
+        </div>
+        
+        <!-- Suggestions Section -->
+        <div class="suggestions">
+          <button class="suggestion-chip glow-effect">
+            <span class="glow-container">
+              <span class="glow"></span>
+            </span>
+            <span>Explain quantum computing</span>
+          </button>
+          <button class="suggestion-chip glow-effect">
+            <span class="glow-container">
+              <span class="glow"></span>
+            </span>
+            <span>Write code for a React form</span>
+          </button>
+          <button class="suggestion-chip glow-effect">
+            <span class="glow-container">
+              <span class="glow"></span>
+            </span>
+            <span>Summarize climate science</span>
+          </button>
+          <button class="suggestion-chip glow-effect">
+            <span class="glow-container">
+              <span class="glow"></span>
+            </span>
+            <span>Create a content strategy</span>
+          </button>
+        </div>
+        
+        <!-- Input Area -->
+        <div class="input-container glass-panel">
+          <div class="input-wrapper">
+            <textarea id="message-input" placeholder="Ask me anything..." rows="1" maxlength="4000"></textarea>
+            
+            <div class="input-actions">
+              <button id="upload-button" class="action-button" aria-label="Upload file">
+                <i class="fas fa-paperclip"></i>
+                <div class="tooltip">Upload file</div>
+              </button>
+              <input type="file" id="file-upload" multiple style="display: none">
+              
+              <button id="voice-input" class="action-button" aria-label="Voice input">
+                <i class="fas fa-microphone"></i>
+                <div class="tooltip">Voice input</div>
+              </button>
+              
+              <div id="character-count" class="character-count">0/4000</div>
+              
+              <button id="send-button" class="send-button neo-button primary-button" disabled>
+                <span class="button-content">
+                  <i class="fas fa-paper-plane"></i>
+                  <span>Send</span>
+                </span>
+                <span class="hover-effect"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Settings Panel -->
+  <div id="settings-panel" class="settings-panel glass-panel">
+    <div class="settings-header">
+      <h2><i class="fas fa-sliders"></i> Settings</h2>
+      <button id="settings-close" class="close-button">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="tabs-container">
+      <div class="tabs-header">
+        <button class="tab-button active" data-tab="interface">Interface</button>
+        <button class="tab-button" data-tab="models">AI Models</button>
+        <button class="tab-button" data-tab="account">Account</button>
+        <button class="tab-button" data-tab="advanced">Advanced</button>
+      </div>
+      
+      <div class="tab-content active" data-tab="interface">
+        <div class="settings-section">
+          <h3>Theme</h3>
+          <div class="theme-picker">
+            <button class="theme-option" data-theme="pulse">
+              <div class="theme-preview" data-theme-preview="pulse"></div>
+              <span>Pulse</span>
+            </button>
+            <button class="theme-option" data-theme="aurora">
+              <div class="theme-preview" data-theme-preview="aurora"></div>
+              <span>Aurora</span>
+            </button>
+            <button class="theme-option" data-theme="midnight">
+              <div class="theme-preview" data-theme-preview="midnight"></div>
+              <span>Midnight</span>
+            </button>
+            <button class="theme-option" data-theme="sunset">
+              <div class="theme-preview" data-theme-preview="sunset"></div>
+              <span>Sunset</span>
+            </button>
+            <button class="theme-option" data-theme="cyber">
+              <div class="theme-preview" data-theme-preview="cyber"></div>
+              <span>Cyber</span>
+            </button>
+            <button class="theme-option" data-theme="minimal">
+              <div class="theme-preview" data-theme-preview="minimal"></div>
+              <span>Minimal</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="settings-section">
+          <h3>Visual Effects</h3>
+          <div class="settings-controls">
+            <div class="control-item">
+              <label for="animation-level">Animation Level</label>
+              <div class="control-group">
+                <select id="animation-level" class="neo-select">
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                  <option value="off">Off</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="control-item">
+              <label>3D Perspective</label>
+              <div class="control-group">
+                <button id="perspective-toggle" class="neo-switch" aria-pressed="true">
+                  <span class="switch-indicator"></span>
+                  <span class="switch-label">Enabled</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="control-item">
+              <label>Custom Cursor</label>
+              <div class="control-group">
+                <button id="cursor-toggle" class="neo-switch" aria-pressed="true">
+                  <span class="switch-indicator"></span>
+                  <span class="switch-label">Enabled</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="control-item">
+              <label>Background Effects</label>
+              <div class="control-group">
+                <button id="bg-effects-toggle" class="neo-switch" aria-pressed="true">
+                  <span class="switch-indicator"></span>
+                  <span class="switch-label">Enabled</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="settings-section">
+          <h3>Text</h3>
+          <div class="settings-controls">
+            <div class="control-item">
+              <label>Text Size</label>
+              <div class="button-group">
+                <button class="neo-button size-button" data-size="small">A<small>A</small></button>
+                <button class="neo-button size-button active" data-size="medium">A<small>A</small></button>
+                <button class="neo-button size-button" data-size="large">A<small>A</small></button>
+              </div>
+            </div>
+            
+            <div class="control-item">
+              <label>Font</label>
+              <div class="control-group">
+                <select id="font-family" class="neo-select">
+                  <option value="Inter">Inter</option>
+                  <option value="Roboto">Roboto</option>
+                  <option value="Open Sans">Open Sans</option>
+                  <option value="Montserrat">Montserrat</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="tab-content" data-tab="models">
+        <div class="settings-section">
+          <h3>AI Model Settings</h3>
+          <div class="model-cards">
+            <div class="model-card active">
+              <div class="model-icon"><i class="fas fa-brain"></i></div>
+              <div class="model-info">
+                <h4>Pulse Ultra</h4>
+                <p>Most advanced reasoning, best for complex tasks</p>
+              </div>
+              <div class="model-badge premium">Premium</div>
+            </div>
+            
+            <div class="model-card">
+              <div class="model-icon"><i class="fas fa-code"></i></div>
+              <div class="model-info">
+                <h4>Pulse Architect</h4>
+                <p>Specialized for code and technical writing</p>
+              </div>
+              <div class="model-badge pro">Pro</div>
+            </div>
+            
+            <div class="model-card">
+              <div class="model-icon"><i class="fas fa-paint-brush"></i></div>
+              <div class="model-info">
+                <h4>Pulse Creative</h4>
+                <p>Enhanced for creative writing and ideation</p>
+              </div>
+              <div class="model-badge pro">Pro</div>
+            </div>
+            
+            <div class="model-card">
+              <div class="model-icon"><i class="fas fa-book"></i></div>
+              <div class="model-info">
+                <h4>Pulse Scholar</h4>
+                <p>Optimized for research and education</p>
+              </div>
+              <div class="model-badge pro">Pro</div>
+            </div>
+            
+            <div class="model-card">
+              <div class="model-icon"><i class="fas fa-comment"></i></div>
+              <div class="model-info">
+                <h4>Pulse Standard</h4>
+                <p>Fast responses for everyday questions</p>
+              </div>
+              <div class="model-badge free">Free</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="settings-section">
+          <h3>AI Behavior</h3>
+          <div class="settings-controls">
+            <div class="control-item">
+              <label>Response Length</label>
+              <div class="control-group">
+                <select id="response-length" class="neo-select">
+                  <option value="concise">Concise</option>
+                  <option value="balanced" selected>Balanced</option>
+                  <option value="detailed">Detailed</option>
+                  <option value="comprehensive">Comprehensive</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="control-item">
+              <label>Creativity</label>
+              <div class="neo-slider-container">
+                <input type="range" min="0" max="100" value="70" class="neo-slider" id="creativity-slider">
+                <div class="slider-labels">
+                  <span>Precise</span>
+                  <span>Balanced</span>
+                  <span>Creative</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="control-item">
+              <label>Knowledge Cutoff</label>
+              <div class="control-group">
+                <select id="knowledge-cutoff" class="neo-select">
+                  <option value="latest">March 2025 (Latest)</option>
+                  <option value="2024">December 2024</option>
+                  <option value="2023">December 2023</option>
+                  <option value="2022">December 2022</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="tab-content" data-tab="account">
+        <!-- Account settings content -->
+        <div class="placeholder-content">
+          <img src="https://via.placeholder.com/400x200?text=Account+Settings" alt="Account Settings Placeholder" class="placeholder-image">
+          <p>Account settings would be displayed here</p>
+        </div>
+      </div>
+      
+      <div class="tab-content" data-tab="advanced">
+        <!-- Advanced settings content -->
+        <div class="placeholder-content">
+          <img src="https://via.placeholder.com/400x200?text=Advanced+Settings" alt="Advanced Settings Placeholder" class="placeholder-image">
+          <p>Advanced settings would be displayed here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Theme Selector Side Panel -->
+  <div id="theme-panel" class="theme-panel">
+    <div class="panel-header">
+      <h3>Choose Theme</h3>
+      <button id="theme-panel-close" class="close-button">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="theme-list">
+      <button class="theme-item active" data-theme="pulse">
+        <div class="theme-preview pulse-preview"></div>
+        <span>Pulse</span>
+      </button>
+      <button class="theme-item" data-theme="aurora">
+        <div class="theme-preview aurora-preview"></div>
+        <span>Aurora</span>
+      </button>
+      <button class="theme-item" data-theme="midnight">
+        <div class="theme-preview midnight-preview"></div>
+        <span>Midnight</span>
+      </button>
+      <button class="theme-item" data-theme="sunset">
+        <div class="theme-preview sunset-preview"></div>
+        <span>Sunset</span>
+      </button>
+      <button class="theme-item" data-theme="cyber">
+        <div class="theme-preview cyber-preview"></div>
+        <span>Cyber</span>
+      </button>
+      <button class="theme-item" data-theme="minimal">
+        <div class="theme-preview minimal-preview"></div>
+        <span>Minimal</span>
+      </button>
+    </div>
+    
+    <div class="custom-theme-controls">
+      <h4>Customize Colors</h4>
+      <div class="color-pickers">
+        <div class="color-picker">
+          <label>Primary</label>
+          <input type="color" id="primary-color" value="#7e57c2">
+        </div>
+        <div class="color-picker">
+          <label>Secondary</label>
+          <input type="color" id="secondary-color" value="#03a9f4">
+        </div>
+        <div class="color-picker">
+          <label>Accent</label>
+          <input type="color" id="accent-color" value="#ff5722">
+        </div>
+      </div>
+      <button id="apply-custom-theme" class="neo-button primary-button">Apply Custom Theme</button>
+    </div>
+  </div>
+  
+  <div id="overlay" class="overlay"></div>
+<script src="script.js"></script>
 </body>
 </html>

@@ -13,8 +13,9 @@ load_dotenv()
 
 app = FastAPI()
 
-# Serve static files like JS and CSS
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
+# Serve static files like JS and CS
+app.mount("/", StaticFiles(directory="frontend", html=True), name="static")
+
 
 
 
