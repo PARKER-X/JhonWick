@@ -1,4 +1,4 @@
-// Main JavaScript for NeuroPulse AI Chat Interface
+// Main JavaScript for ChatBookLLm Chat Interface
 document.addEventListener('DOMContentLoaded', () => {
   // DOM Elements
   // Main UI Elements
@@ -89,8 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const aiResponses = {
     'pulse-standard': {
       greeting: [
-        "Hello! I'm NeuroPulse AI. How can I assist you today?",
-        "Welcome to NeuroPulse AI. What would you like to know?",
+        "Hello! I'm ChatBookLLm. How can I assist you today?",
+        "Welcome to ChatBookLLm AI. What would you like to know?",
         "Hi there! I'm your AI assistant. What can I help you with?"
       ],
       general: [
@@ -117,8 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'pulse-ultra': {
       greeting: [
-        "Welcome! I'm running on NeuroPulse Ultra, optimized for complex reasoning. How can I assist you today?",
-        "Hello! You're connected to NeuroPulse Ultra. I'm designed for advanced problem-solving and nuanced understanding. What would you like to explore?",
+        "Welcome! I'm running on ChatBookLLm Ultra, optimized for complex reasoning. How can I assist you today?",
+        "Hello! You're connected to ChatBookLLm Ultra. I'm designed for advanced problem-solving and nuanced understanding. What would you like to explore?",
         "Greetings! I'm your Ultra-powered AI assistant with enhanced reasoning capabilities. What complex question can I help you with?"
       ],
       general: [
@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const senderName = document.createElement('span');
     senderName.classList.add('sender-name');
-    senderName.textContent = sender === 'ai' ? 'NeuroPulse AI' : 'You';
+    senderName.textContent = sender === 'ai' ? 'ChatBookLLm' : 'You';
     
     const messageTime = document.createElement('span');
     messageTime.classList.add('message-time');
@@ -640,7 +640,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (citationsEnabled && (responseLengthSetting === 'detailed' || responseLengthSetting === 'comprehensive')) {
       aiResponse += "\n\nSources:\n";
       aiResponse += "[1] Johnson et al. (2023). Advanced Concepts in AI Communication.\n";
-      aiResponse += "[2] NeuroPulse Technical Documentation (2024).\n";
+      aiResponse += "[2] ChatBookLLm Technical Documentation (2024).\n";
     }
     
     // Display the final response
