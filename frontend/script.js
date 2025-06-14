@@ -174,171 +174,168 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // === Keep old variable names for CSS compatibility ===
-  const aiResponses = {
-    'pulse-standard': {
-      greeting: [
-        "Hello! I'm ChatBookLLm. How can I assist you today?",
-        "Welcome to ChatBookLLm AI. What would you like to know?",
-        "Hi there! I'm your AI assistant. What can I help you with?"
-      ],
-      general: [
-        "I understand your question. Let me analyze that for you.",
-        "That's an interesting topic. Let me gather some relevant information.",
-        "I'd be happy to help with that. Here's what I know.",
-        "I've processed your request and have the following insights."
-      ],
-      technical: [
-        "Let me analyze this technical question for you.",
-        "I'll work through this step by step for clarity.",
-        "This is a complex topic. Here's my technical analysis."
-      ],
-      creative: [
-        "I've generated some creative ideas based on your request.",
-        "Here's a creative approach to your question.",
-        "I've explored some imaginative possibilities for you."
-      ],
-      extended: [
-        "I'm engaging extended thinking to give you the most accurate answer...",
-        "This requires deeper analysis. Let me think through this carefully...",
-        "I'm thoroughly examining multiple perspectives on this complex question..."
-      ]
-    },
-    'pulse-ultra': {
-      greeting: [
-        "Welcome! I'm running on ChatBookLLm Ultra, optimized for complex reasoning. How can I assist you today?",
-        "Hello! You're connected to ChatBookLLm Ultra. I'm designed for advanced problem-solving and nuanced understanding. What would you like to explore?",
-        "Greetings! I'm your Ultra-powered AI assistant with enhanced reasoning capabilities. What complex question can I help you with?"
-      ],
-      general: [
-        "I'm analyzing your question using my enhanced reasoning capabilities.",
-        "Let me leverage my advanced processing to provide you with a comprehensive answer.",
-        "I'm utilizing my optimized neural pathways to deeply understand your question.",
-        "I'm accessing my expanded knowledge base to give you the most accurate response."
-      ],
-      technical: [
-        "I'm applying specialized technical analysis to your question.",
-        "Let me break down this technical challenge systematically using my advanced reasoning.",
-        "I'll leverage my enhanced problem-solving framework to address this technical question."
-      ],
-      creative: [
-        "I'm engaging my creative synthesis capabilities to generate novel perspectives.",
-        "Let me explore multiple creative dimensions of your request.",
-        "I'm combining disparate concepts to provide you with unique creative insights."
-      ],
-      extended: [
-        "Activating extended cognition mode to deeply analyze all aspects of this question...",
-        "I'm performing multi-layered reasoning to ensure the most accurate and nuanced response...",
-        "Engaging in comprehensive contextual analysis to provide you with the optimal answer..."
-      ]
-    },
-    'pulse-architect': {
-      greeting: [
-        "Hello! I'm running Pulse Architect, specialized for technical and code-related tasks. How can I assist with your development needs?",
-        "Welcome to Pulse Architect! I'm optimized for coding, technical documentation, and system design. What are you working on today?",
-        "Greetings! You're connected to the Architect model, designed for programming and technical tasks. How can I help you build today?"
-      ],
-      technical: [
-        "Analyzing your technical requirements with specialized algorithms.",
-        "Let me architect a solution tailored to your technical specifications.",
-        "I'll develop a structured approach to address this technical challenge."
-      ],
-      code: [
-        "I'll generate efficient and well-documented code for your requirements.",
-        "Let me develop a clean, optimized implementation for you.",
-        "I'll design a maintainable code solution with best practices in mind."
-      ]
-    }
-  };
+// DOM elements (ensure these match your HTML IDs)
 
-  const defaultResponses = [
-    "I understand your question. Let me provide a thoughtful response.",
-    "That's an interesting query. Let me analyze it carefully.",
-    "I'm processing your request to give you the most helpful information.",
-    "Let me consider the best approach to answer your question effectively."
-  ];
-
-  // Default model (can be changed dynamically later)
-  
-
-  // Detect response type by keywords (basic heuristic)
-  function getResponseType(message) {
-    const lower = message.toLowerCase();
-    if (lower.includes('hello') || lower.includes('hi')) return 'greeting';
-    if (lower.includes('code') || lower.includes('function')) return 'code';
-    if (lower.includes('design') || lower.includes('architecture')) return 'technical';
-    if (lower.includes('idea') || lower.includes('creative')) return 'creative';
-    if (message.length > 200) return 'extended';
-    return 'general';
+// Predefined AI responses for different models and types
+const aiResponses = {
+  'pulse-standard': {
+    greeting: [
+      "Hello! I'm ChatBookLLm. How can I assist you today?",
+      "Welcome to ChatBookLLm AI. What would you like to know?",
+      "Hi there! I'm your AI assistant. What can I help you with?"
+    ],
+    general: [
+      "I understand your question. Let me analyze that for you.",
+      "That's an interesting topic. Let me gather some relevant information.",
+      "I'd be happy to help with that. Here's what I know.",
+      "I've processed your request and have the following insights."
+    ],
+    technical: [
+      "Let me analyze this technical question for you.",
+      "I'll work through this step by step for clarity.",
+      "This is a complex topic. Here's my technical analysis."
+    ],
+    creative: [
+      "I've generated some creative ideas based on your request.",
+      "Here's a creative approach to your question.",
+      "I've explored some imaginative possibilities for you."
+    ],
+    extended: [
+      "I'm engaging extended thinking to give you the most accurate answer...",
+      "This requires deeper analysis. Let me think through this carefully...",
+      "I'm thoroughly examining multiple perspectives on this complex question..."
+    ]
+  },
+  'pulse-ultra': {
+    greeting: [
+      "Welcome! I'm running on ChatBookLLm Ultra, optimized for complex reasoning. How can I assist you today?",
+      "Hello! You're connected to ChatBookLLm Ultra. I'm designed for advanced problem-solving and nuanced understanding. What would you like to explore?",
+      "Greetings! I'm your Ultra-powered AI assistant with enhanced reasoning capabilities. What complex question can I help you with?"
+    ],
+    general: [
+      "I'm analyzing your question using my enhanced reasoning capabilities.",
+      "Let me leverage my advanced processing to provide you with a comprehensive answer.",
+      "I'm utilizing my optimized neural pathways to deeply understand your question.",
+      "I'm accessing my expanded knowledge base to give you the most accurate response."
+    ],
+    technical: [
+      "I'm applying specialized technical analysis to your question.",
+      "Let me break down this technical challenge systematically using my advanced reasoning.",
+      "I'll leverage my enhanced problem-solving framework to address this technical question."
+    ],
+    creative: [
+      "I'm engaging my creative synthesis capabilities to generate novel perspectives.",
+      "Let me explore multiple creative dimensions of your request.",
+      "I'm combining disparate concepts to provide you with unique creative insights."
+    ],
+    extended: [
+      "Activating extended cognition mode to deeply analyze all aspects of this question...",
+      "I'm performing multi-layered reasoning to ensure the most accurate and nuanced response...",
+      "Engaging in comprehensive contextual analysis to provide you with the optimal answer..."
+    ]
+  },
+  'pulse-architect': {
+    greeting: [
+      "Hello! I'm running Pulse Architect, specialized for technical and code-related tasks. How can I assist with your development needs?",
+      "Welcome to Pulse Architect! I'm optimized for coding, technical documentation, and system design. What are you working on today?",
+      "Greetings! You're connected to the Architect model, designed for programming and technical tasks. How can I help you build today?"
+    ],
+    technical: [
+      "Analyzing your technical requirements with specialized algorithms.",
+      "Let me architect a solution tailored to your technical specifications.",
+      "I'll develop a structured approach to address this technical challenge."
+    ],
+    code: [
+      "I'll generate efficient and well-documented code for your requirements.",
+      "Let me develop a clean, optimized implementation for you.",
+      "I'll design a maintainable code solution with best practices in mind."
+    ]
   }
+};
 
-  function getRandomAIResponse(type) {
-    const modelData = aiResponses[selectedModel];
-    if (modelData && modelData[type]) {
-      const messages = modelData[type];
-      return messages[Math.floor(Math.random() * messages.length)];
-    }
-    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-  }
+const defaultResponses = [
+  "I understand your question. Let me provide a thoughtful response.",
+  "That's an interesting query. Let me analyze it carefully.",
+  "I'm processing your request to give you the most helpful information.",
+  "Let me consider the best approach to answer your question effectively."
+];
 
-  // === Update character count and enable/disable Send button ===
-  messageInput.addEventListener('input', () => {
-    const length = messageInput.value.length;
-    characterCount.textContent = `${length}/4000`;
-    sendButton.disabled = length === 0;
-  });
+// Function to add a message to the chat
+function addMessage(sender, text) {
+  const messageElem = document.createElement('div');
+  messageElem.className = `message ${sender}`;
+  messageElem.textContent = text;
+  messagesList.appendChild(messageElem);
+  messagesList.scrollTop = messagesList.scrollHeight; // Scroll to bottom
+  console.log(`Added ${sender} message: ${text}`); // Debug: Confirm message added
+}
 
-  // === Helper function: Append a new message to the chat ===
-  function addMessage(sender, text) {
-    const messageElem = document.createElement('div');
-    messageElem.className = `message ${sender}`;
-    messageElem.textContent = text;
-    messagesList.appendChild(messageElem);
-    messagesList.scrollTop = messagesList.scrollHeight;
-  }
+// Function to toggle typing indicator
+function showTypingIndicator(show) {
+  typingIndicator.style.display = show ? 'block' : 'none';
+  console.log(`Typing indicator: ${show ? 'shown' : 'hidden'}`); // Debug
+}
 
-  // === Helper function: Show or hide the typing indicator ===
-  function showTypingIndicator(show) {
-    typingIndicator.style.display = show ? 'flex' : 'none';
-  }
+// Handle input changes to update character count and button state
+messageInput.addEventListener('input', () => {
+  const length = messageInput.value.length;
+  console.log('Input changed, length:', length); // Debug: Check input
+  characterCount.textContent = `${length}/4000`;
+  sendButton.disabled = length === 0; // Enable button if input has text
+  console.log('Send button disabled:', sendButton.disabled); // Debug: Button state
+});
 
-  // === Send message and handle response ===
-  sendButton.addEventListener('click', async () => {
+// Handle send button click
+sendButton.addEventListener('click', async (event) => {
+  event.preventDefault(); // Prevent form submission
+  console.log('Send button clicked'); // Debug: Confirm click
+
   const message = messageInput.value.trim();
-  if (!message) return;
+  if (!message) {
+    console.log('Empty message, ignoring'); // Debug
+    return;
+  }
 
+  // Display user’s message
   addMessage('user', message);
 
+  // Reset input and UI
   messageInput.value = '';
-  characterCount.textContent = `0/4000`;
-  sendButton.disabled = true;
-
-  showTypingIndicator(true);
+  characterCount.textContent = '0/4000';
+  sendButton.disabled = true; // Disable until new input
+  showTypingIndicator(true); // Show typing indicator
 
   try {
+    console.log('Fetching API with message:', message); // Debug: Before fetch
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
     const response = await fetch('http://localhost:8000/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt: message })
+      body: JSON.stringify({ prompt: message }),
+      signal: controller.signal
     });
 
-    if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+    clearTimeout(timeoutId); // Clear timeout
+
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
 
     const data = await response.json();
-    const botReply = data.result;
+    console.log('API response:', data); // Debug: Check response
+    const botReply = data.result || 'No response from API'; // Fallback if result is missing
     addMessage('bot', botReply);
-  } catch (err) {
-    console.error('Server error:', err);
-
-    // Use local fallback AI response
-    const type = getResponseType(message);
-    const fallback = getRandomAIResponse(type);
-    addMessage('bot', fallback);
+  } catch (error) {
+    console.error('Fetch error:', error);
+    addMessage('bot', 'Sorry, something went wrong. Please try again.');
   } finally {
-    showTypingIndicator(false);
+    showTypingIndicator(false); // Hide typing indicator
+    sendButton.disabled = messageInput.value.length === 0; // Ensure button state is correct
+    console.log('Request completed'); // Debug
   }
 });
-
-
   
   // --- Core Initialization Functions ---
   
