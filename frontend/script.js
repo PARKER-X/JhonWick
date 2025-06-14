@@ -260,25 +260,50 @@ const defaultResponses = [
   "Let me consider the best approach to answer your question effectively."
 ];
 // Function to add a message to the chat
+// Function to add a message to the chat
 function addMessage(sender, text) {
   const messageElem = document.createElement('div');
   messageElem.className = `message ${sender} reveal-message`;
 
-  // Create avatar
+  // Outer content container
+  const content = document.createElement('div');
+  content.className = 'message-content';
+
+  // Header with avatar and sender info
+  const header = document.createElement('div');
+  header.className = 'message-header';
+
   const avatar = document.createElement('div');
   avatar.className = `avatar ${sender}-avatar`;
+  avatar.textContent = sender === 'user' ? 'U' : 'B'; // Replace with initials or icons
 
-  // Optional: set a background image or emoji instead of background-color
-  // avatar.style.backgroundImage = `url('path-to-avatar.png')`;
+  const senderInfo = document.createElement('div');
+  senderInfo.className = 'sender-info';
 
-  // Create message bubble
+  const senderName = document.createElement('span');
+  senderName.className = 'sender-name';
+  senderName.textContent = sender === 'user' ? 'You' : 'ChatBookLLM';
+
+  const messageTime = document.createElement('span');
+  messageTime.className = 'message-time';
+  const now = new Date();
+  messageTime.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  // Assemble header
+  senderInfo.appendChild(senderName);
+  senderInfo.appendChild(messageTime);
+  header.appendChild(avatar);
+  header.appendChild(senderInfo);
+
+  // Message bubble
   const bubble = document.createElement('div');
   bubble.className = 'bubble';
   bubble.textContent = text;
 
-  // Assemble message
-  messageElem.appendChild(avatar);
-  messageElem.appendChild(bubble);
+  // Assemble full message
+  content.appendChild(header);
+  content.appendChild(bubble);
+  messageElem.appendChild(content);
   messagesList.appendChild(messageElem);
   messagesList.scrollTop = messagesList.scrollHeight;
 
@@ -291,7 +316,7 @@ function showTypingIndicator(show) {
   console.log(`Typing indicator: ${show ? 'shown' : 'hidden'}`);
 }
 
-// Handle input changes to update character count and button state
+// Handle input and update character count
 messageInput.addEventListener('input', () => {
   const length = messageInput.value.length;
   characterCount.textContent = `${length}/4000`;
@@ -305,10 +330,7 @@ sendButton.addEventListener('click', async (event) => {
   const message = messageInput.value.trim();
   if (!message) return;
 
-  // Show user message
   addMessage('user', message);
-
-  // Reset input and UI
   messageInput.value = '';
   characterCount.textContent = '0/4000';
   sendButton.disabled = true;
@@ -340,6 +362,7 @@ sendButton.addEventListener('click', async (event) => {
     sendButton.disabled = messageInput.value.length === 0;
   }
 });
+
 
   // --- Core Initialization Functions ---
   
