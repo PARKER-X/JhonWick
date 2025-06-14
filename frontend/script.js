@@ -259,56 +259,64 @@ const defaultResponses = [
   "I'm processing your request to give you the most helpful information.",
   "Let me consider the best approach to answer your question effectively."
 ];
-
 // Function to add a message to the chat
 function addMessage(sender, text) {
   const messageElem = document.createElement('div');
-  messageElem.className = `message ${sender}`;
-  messageElem.textContent = text;
+  messageElem.className = `message ${sender} reveal-message`;
+
+  // Create avatar
+  const avatar = document.createElement('div');
+  avatar.className = `avatar ${sender}-avatar`;
+
+  // Optional: set a background image or emoji instead of background-color
+  // avatar.style.backgroundImage = `url('path-to-avatar.png')`;
+
+  // Create message bubble
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.textContent = text;
+
+  // Assemble message
+  messageElem.appendChild(avatar);
+  messageElem.appendChild(bubble);
   messagesList.appendChild(messageElem);
-  messagesList.scrollTop = messagesList.scrollHeight; // Scroll to bottom
-  console.log(`Added ${sender} message: ${text}`); // Debug: Confirm message added
+  messagesList.scrollTop = messagesList.scrollHeight;
+
+  console.log(`Added ${sender} message: ${text}`);
 }
 
 // Function to toggle typing indicator
 function showTypingIndicator(show) {
   typingIndicator.style.display = show ? 'block' : 'none';
-  console.log(`Typing indicator: ${show ? 'shown' : 'hidden'}`); // Debug
+  console.log(`Typing indicator: ${show ? 'shown' : 'hidden'}`);
 }
 
 // Handle input changes to update character count and button state
 messageInput.addEventListener('input', () => {
   const length = messageInput.value.length;
-  console.log('Input changed, length:', length); // Debug: Check input
   characterCount.textContent = `${length}/4000`;
-  sendButton.disabled = length === 0; // Enable button if input has text
-  console.log('Send button disabled:', sendButton.disabled); // Debug: Button state
+  sendButton.disabled = length === 0;
 });
 
 // Handle send button click
 sendButton.addEventListener('click', async (event) => {
-  event.preventDefault(); // Prevent form submission
-  console.log('Send button clicked'); // Debug: Confirm click
+  event.preventDefault();
 
   const message = messageInput.value.trim();
-  if (!message) {
-    console.log('Empty message, ignoring'); // Debug
-    return;
-  }
+  if (!message) return;
 
-  // Display user’s message
+  // Show user message
   addMessage('user', message);
 
   // Reset input and UI
   messageInput.value = '';
   characterCount.textContent = '0/4000';
-  sendButton.disabled = true; // Disable until new input
-  showTypingIndicator(true); // Show typing indicator
+  sendButton.disabled = true;
+  showTypingIndicator(true);
 
   try {
-    console.log('Fetching API with message:', message); // Debug: Before fetch
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     const response = await fetch('http://localhost:8000/api/generate', {
       method: 'POST',
@@ -317,26 +325,22 @@ sendButton.addEventListener('click', async (event) => {
       signal: controller.signal
     });
 
-    clearTimeout(timeoutId); // Clear timeout
+    clearTimeout(timeoutId);
 
-    if (!response.ok) {
-      throw new Error(`Server error: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`Server error: ${response.status}`);
 
     const data = await response.json();
-    console.log('API response:', data); // Debug: Check response
-    const botReply = data.result || 'No response from API'; // Fallback if result is missing
+    const botReply = data.result || 'No response from API';
     addMessage('bot', botReply);
   } catch (error) {
     console.error('Fetch error:', error);
     addMessage('bot', 'Sorry, something went wrong. Please try again.');
   } finally {
-    showTypingIndicator(false); // Hide typing indicator
-    sendButton.disabled = messageInput.value.length === 0; // Ensure button state is correct
-    console.log('Request completed'); // Debug
+    showTypingIndicator(false);
+    sendButton.disabled = messageInput.value.length === 0;
   }
 });
-  
+
   // --- Core Initialization Functions ---
   
   function initializeUI() {

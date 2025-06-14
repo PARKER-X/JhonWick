@@ -2016,3 +2016,19 @@ textarea:focus {
     width: 260px;
   }
 }
+
+
+/* Modified */
+
+.message.bot{
+  padding: var(--space-md);
+  line-height: 1.6;
+}
+
+ .message.bot p {
+  margin-bottom: var(--space-sm);
+}
+
+.message.bot p:last-child {
+  margin-bottom: 0;
+}
