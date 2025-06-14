@@ -261,46 +261,59 @@ const defaultResponses = [
 ];
 // Function to add a message to the chat
 // Function to add a message to the chat
+// Function to add a message to the chat
 function addMessage(sender, text) {
   const messageElem = document.createElement('div');
   messageElem.className = `message ${sender} reveal-message`;
 
-  // Outer content container
   const content = document.createElement('div');
   content.className = 'message-content';
 
-  // Header with avatar and sender info
   const header = document.createElement('div');
   header.className = 'message-header';
 
   const avatar = document.createElement('div');
   avatar.className = `avatar ${sender}-avatar`;
-  avatar.textContent = sender === 'user' ? 'U' : 'B'; // Replace with initials or icons
+  avatar.textContent = sender === 'user' ? 'U' : 'B';
 
   const senderInfo = document.createElement('div');
   senderInfo.className = 'sender-info';
 
   const senderName = document.createElement('span');
   senderName.className = 'sender-name';
-  senderName.textContent = sender === 'user' ? 'You' : 'ChatBookLLM';
+  senderName.textContent =
+    sender === 'user' ? 'You' : sender === 'ai' ? 'ChatBookLLM' : 'Assistant';
 
   const messageTime = document.createElement('span');
   messageTime.className = 'message-time';
   const now = new Date();
-  messageTime.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  messageTime.textContent = now.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 
-  // Assemble header
   senderInfo.appendChild(senderName);
   senderInfo.appendChild(messageTime);
   header.appendChild(avatar);
   header.appendChild(senderInfo);
 
-  // Message bubble
   const bubble = document.createElement('div');
   bubble.className = 'bubble';
   bubble.textContent = text;
 
-  // Assemble full message
+  // Message actions (copy button)
+  const actions = document.createElement('div');
+  actions.className = 'message-actions';
+
+  const copyBtn = document.createElement('button');
+  copyBtn.className = 'action-button copy';
+  copyBtn.textContent = '📋';
+  copyBtn.title = 'Copy Message';
+  copyBtn.onclick = () => navigator.clipboard.writeText(text);
+
+  actions.appendChild(copyBtn);
+  bubble.appendChild(actions);
+
   content.appendChild(header);
   content.appendChild(bubble);
   messageElem.appendChild(content);
@@ -310,23 +323,22 @@ function addMessage(sender, text) {
   console.log(`Added ${sender} message: ${text}`);
 }
 
-// Function to toggle typing indicator
+// Typing indicator toggle
 function showTypingIndicator(show) {
   typingIndicator.style.display = show ? 'block' : 'none';
   console.log(`Typing indicator: ${show ? 'shown' : 'hidden'}`);
 }
 
-// Handle input and update character count
+// Input handler
 messageInput.addEventListener('input', () => {
   const length = messageInput.value.length;
   characterCount.textContent = `${length}/4000`;
   sendButton.disabled = length === 0;
 });
 
-// Handle send button click
+// Send button handler
 sendButton.addEventListener('click', async (event) => {
   event.preventDefault();
-
   const message = messageInput.value.trim();
   if (!message) return;
 
@@ -344,7 +356,7 @@ sendButton.addEventListener('click', async (event) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt: message }),
-      signal: controller.signal
+      signal: controller.signal,
     });
 
     clearTimeout(timeoutId);
@@ -352,11 +364,11 @@ sendButton.addEventListener('click', async (event) => {
     if (!response.ok) throw new Error(`Server error: ${response.status}`);
 
     const data = await response.json();
-    const botReply = data.result || 'No response from API';
-    addMessage('bot', botReply);
+    const reply = data.result || 'No response from API';
+    addMessage('ai', reply);
   } catch (error) {
     console.error('Fetch error:', error);
-    addMessage('bot', 'Sorry, something went wrong. Please try again.');
+    addMessage('ai', 'Sorry, something went wrong. Please try again.');
   } finally {
     showTypingIndicator(false);
     sendButton.disabled = messageInput.value.length === 0;
