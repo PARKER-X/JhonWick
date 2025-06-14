@@ -303,46 +303,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // === Send message and handle response ===
   sendButton.addEventListener('click', async () => {
-    const message = messageInput.value.trim();
-    if (!message) return;
+  const message = messageInput.value.trim();
+  if (!message) return;
 
-    // Add user message to chat
-    addMessage('user', message);
+  addMessage('user', message);
 
-    // Reset input
-    messageInput.value = '';
-    characterCount.textContent = `0/4000`;
-    sendButton.disabled = true;
+  messageInput.value = '';
+  characterCount.textContent = `0/4000`;
+  sendButton.disabled = true;
 
-    // Show typing indicator
-    showTypingIndicator(true);
+  showTypingIndicator(true);
 
-    try {
-      // Try real backend call
-      const response = await fetch('http://localhost:8000/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: message })
-      });
+  try {
+    const response = await fetch('http://localhost:8000/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: message })
+    });
 
-      if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+    if (!response.ok) throw new Error(`HTTP error ${response.status}`);
 
-      const data = await response.json();
-      console.log(data);
-      const botReply = data.result || getRandomAIResponse(getResponseType(message));
-      addMessage('bot', botReply);
+    const data = await response.json();
+    const botReply = data.result;
+    addMessage('bot', botReply);
+  } catch (err) {
+    console.error('Server error:', err);
 
-    } catch (err) {
-      console.error('Server error:', err);
-
-      // Fallback to local AI response
-      const fallback = getRandomAIResponse(getResponseType(message));
-      addMessage('bot', fallback);
-    } finally {
-      showTypingIndicator(false);
-    }
-  });
-
+    // Use local fallback AI response
+    const type = getResponseType(message);
+    const fallback = getRandomAIResponse(type);
+    addMessage('bot', fallback);
+  } finally {
+    showTypingIndicator(false);
+  }
+});
 
 
   
