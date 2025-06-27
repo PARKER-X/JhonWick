@@ -262,6 +262,7 @@ const defaultResponses = [
 // Function to add a message to the chat
 // Function to add a message to the chat
 // Function to add a message to the chat
+// Function to add a message to the chat
 function addMessage(sender, text) {
   const messageElem = document.createElement('div');
   messageElem.className = `message ${sender} reveal-message`;
@@ -301,17 +302,29 @@ function addMessage(sender, text) {
   bubble.className = 'bubble';
   bubble.textContent = text;
 
-  // Message actions (copy button)
+  // Actions container
   const actions = document.createElement('div');
   actions.className = 'message-actions';
 
+  // Copy button
   const copyBtn = document.createElement('button');
   copyBtn.className = 'action-button copy';
+  copyBtn.title = 'Copy message';
   copyBtn.textContent = '📋';
-  copyBtn.title = 'Copy Message';
   copyBtn.onclick = () => navigator.clipboard.writeText(text);
 
+  // Speak button
+  const speakBtn = document.createElement('button');
+  speakBtn.className = 'action-button speak';
+  speakBtn.title = 'Read message aloud';
+  speakBtn.textContent = '🔊';
+  speakBtn.onclick = () => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    speechSynthesis.speak(utterance);
+  };
+
   actions.appendChild(copyBtn);
+  actions.appendChild(speakBtn);
   bubble.appendChild(actions);
 
   content.appendChild(header);
@@ -319,24 +332,21 @@ function addMessage(sender, text) {
   messageElem.appendChild(content);
   messagesList.appendChild(messageElem);
   messagesList.scrollTop = messagesList.scrollHeight;
-
-  console.log(`Added ${sender} message: ${text}`);
 }
 
-// Typing indicator toggle
+// Function to show/hide typing indicator
 function showTypingIndicator(show) {
   typingIndicator.style.display = show ? 'block' : 'none';
-  console.log(`Typing indicator: ${show ? 'shown' : 'hidden'}`);
 }
 
-// Input handler
+// Handle input changes
 messageInput.addEventListener('input', () => {
   const length = messageInput.value.length;
   characterCount.textContent = `${length}/4000`;
   sendButton.disabled = length === 0;
 });
 
-// Send button handler
+// Handle send button
 sendButton.addEventListener('click', async (event) => {
   event.preventDefault();
   const message = messageInput.value.trim();
@@ -368,7 +378,7 @@ sendButton.addEventListener('click', async (event) => {
     addMessage('ai', reply);
   } catch (error) {
     console.error('Fetch error:', error);
-    addMessage('ai', 'Sorry, something went wrong. Please try again.');
+    addMessage('ai', '⚠️ Sorry, something went wrong. Please try again.');
   } finally {
     showTypingIndicator(false);
     sendButton.disabled = messageInput.value.length === 0;
